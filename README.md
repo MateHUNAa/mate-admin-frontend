@@ -39,8 +39,11 @@
 - Ped Menu
 - Handcuff
 
-## Teleport
-- WIP
+## Troll Menu
+- Fire
+- Blow
+- Kill
+- Hunger
 
 ## Garage
 
