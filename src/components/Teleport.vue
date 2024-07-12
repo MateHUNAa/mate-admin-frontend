@@ -3,7 +3,7 @@
           <div v-if="props.selectedPlayer" class="border-[3px] border-slate-600 p-8">
 
                <div class="relative">
-                    <h1 class="text-lg font-bold text-white absolute -top-12 right-[5rem]">TELEPORT MENU</h1>
+                    <h1 class="text-lg font-bold text-white absolute -top-12 right-[5rem]">{{ config.Teleport.TITLE }}</h1>
                </div>
 
                <div class="grid grid-cols-2 gap-4">
@@ -15,30 +15,32 @@
           </div>
 
           <div v-else>
-               <h1 class="text-lg font-bold text-white">No player selected</h1>
+               <h1 class="text-lg font-bold text-white">{{ config.Teleport.NOPLAYER}}</h1>
           </div>
      </div>
 </template>
 
 <script setup>
-
+import axios from 'axios'
+import config from "../config.json"
 const props = defineProps({
      selectedPlayer: Object
 })
 
 const handleAction = (action) => {
      console.log(`action: ${action}`)
+     axios.post(`https://mate-admin/teleport`, JSON.stringify({ target: props.selectedPlayer.id, action: action }))
 }
 
 const buttons = [
-     "Public",
-     "Cloth",
-     "Impound",
-     "Ambulance",
-     "Waypoint",
-     "LSPD",
-     "Bring",
-     "Goto"
+     config.Teleport.Public,
+     config.Teleport.Cloth,
+     config.Teleport.Impound,
+     config.Teleport.Ambulance,
+     config.Teleport.Waypoint,
+     config.Teleport.LSPD,
+     config.Teleport.Bring,
+     config.Teleport.Goto,
 ]
 
 </script>

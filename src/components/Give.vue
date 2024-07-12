@@ -15,14 +15,15 @@
                </div>
           </div>
           <div v-else>
-               <h1 class="text-2xl font-bold text-white">Player not selected!</h1>
+               <h1 class="text-2xl font-bold text-white">{{ config.Give.NOPLAYER }}</h1>
           </div>
      </div>
 </template>
 
 <script setup>
 import { ref, defineProps } from 'vue';
-
+import axios from 'axios';
+import config from "../config.json"
 const props = defineProps({
      selectedPlayer: Object,
      adminPlayer: Object
@@ -35,29 +36,29 @@ const buttonGroups = ref([
      {
           inputValue: "",
           buttons: [
-               { label: 'ITEMS', action: 'items', isInput: true },
-               { label: 'GIVE', action: 'give', isInput: false, className: "w-24" }
+               { label: config.Give.plItems, action: 'items', isInput: true },
+               { label: config.Give.GIVE, action: 'give', isInput: false, className: "w-24" }
           ]
      },
      {
           inputValue: "",
           buttons: [
-               { label: 'VEHICLE MODEL', action: 'vehicleModel', isInput: true },
-               { label: 'GIVE', action: 'giveVehicle', isInput: false, className: "w-24" }
+               { label: config.Give.plVehicle, action: 'vehicleModel', isInput: true },
+               { label: config.Give.GIVE, action: 'giveVehicle', isInput: false, className: "w-24" }
           ]
      },
      {
           inputValue: 'WEAPON_',
           buttons: [
-               { label: 'WEAPONS', action: 'weapons', isInput: true },
-               { label: 'GIVE', action: 'giveWeapons', isInput: false, className: "w-24" }
+               { label: config.Give.plWeapon, action: 'weapons', isInput: true },
+               { label: config.Give.GIVE, action: 'giveWeapons', isInput: false, className: "w-24" }
           ]
      },
      {
           buttons: [
-               { label: 'SKIN MENU', action: 'skinMenu', isInput: false },
-               { label: 'PED MENU', action: 'pedMenu', isInput: false },
-               { label: 'HANDCUFF', action: 'handcuff', isInput: false }
+               { label: config.Give.SKINMENU, action: 'skinMenu', isInput: false },
+               { label: config.Give.PEDMENU, action: 'pedMenu', isInput: false },
+               { label: config.Give.HANDCUFF, action: 'handcuff', isInput: false }
           ]
      }
 ]);
@@ -67,10 +68,11 @@ const selectedButton = ref(null);
 const handleClick = (action, value) => {
      switch (action) {
           case "giveWeapons":
-               if (!value.toLowerCase().startsWith("weapon")) {
+               if (!value || !value.toLowerCase().startsWith("weapon")) {
                     console.log(`[Failed]: Failed to give weapon to ${props.selectedPlayer.name} because the weapon model is not valid!`);
                     return;
                }
+               axios.post("https://mate-admin/give:weapon", JSON.stringify({ weapon: value, target: props.selectedPlayer.id }))
                break;
           case "give":
                if (!value || value.toLowerCase().startsWith("weapon")) {
@@ -81,12 +83,27 @@ const handleClick = (action, value) => {
                     }
                     return;
                }
+               axios.post("https://mate-admin/give:item", JSON.stringify({ item: value, target: props.selectedPlayer.id }))
                break;
           case "giveVehicle":
                if (!value) {
                     console.log(`[Failed]: Failed to give vehicle to ${props.selectedPlayer.name} because the model is null`);
                     return;
                }
+               axios.post("https://mate-admin/give:vehicle", JSON.stringify({ vehicle: value, target: props.selectedPlayer.id }))
+
+               break;
+
+          case "skinMenu":
+               axios.post("https://mate-admin/give:skinMenu", JSON.stringify({ target: props.selectedPlayer.id }))
+               axios.post("https://mate-admin/:ForceHideUI")
+               break;
+          case "pedMenu":
+               axios.post("https://mate-admin/give:pedMenu", JSON.stringify({ target: props.selectedPlayer.id }))
+               axios.post("https://mate-admin/:ForceHideUI")
+               break;
+          case "handcuff":
+               axios.post("https://mate-admin/give:handCuff", JSON.stringify({ target: props.selectedPlayer.id }))
                break;
      }
      selectedButton.value = action;

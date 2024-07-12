@@ -2,7 +2,8 @@
      <div class="rounded-lg border-2 border-slate-400 text-card-foreground shadow-sm bg-slate-800  p-4"
           data-v0-t="card">
           <div class="flex flex-col space-y-1.5 p-6">
-               <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Self</h3>
+               <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">{{ config.Self.TITLE }}
+               </h3>
           </div>
           <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                <!-- Actions -->
@@ -21,25 +22,40 @@
 
 <script setup>
 import { ref } from 'vue';
-
-
+import axios from 'axios'
+import config from '../../../config.json'
 // Action buttons data
 const actions = ref([
-     'Invisible',
-     'Heal',
-     'Armour',
-     'Invincible',
-     'Add Weapons',
-     'Remove Weapons'
+     config.Self.Invisible,
+     config.Self.Heal,
+     config.Self.Armour,
+     config.Self.Invincible,
+     config.Self.AddWeapons,
+     config.Self.RemoveWeapons
 ]);
-
-// Toggle ESP option
-const toggleESP = (optionId) => {
-     console.log(`Toggled ESP option: ${optionId}`);
-};
 
 // Perform action
 const performAction = (action) => {
      console.log(`Performed action: ${action}`);
+     switch (action) {
+          case "Invisible":
+               axios.post("https://mate-admin/client:invisible")
+               break;
+          case "Heal":
+               axios.post("https://mate-admin/client:heal")
+               break;
+          case "Armour":
+               axios.post("https://mate-admin/client:armour")
+               break;
+          case "Invincible":
+               axios.post("https://mate-admin/client:invincible")
+               break;
+          case "Add Weapons":
+               axios.post("https://mate-admin/client:addAllWeapons")
+               break;
+          case "Remove Weapons":
+               axios.post("https://mate-admin/client:removeAllWeapons")
+               break;
+     }
 };
 </script>

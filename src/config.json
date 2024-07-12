@@ -1,0 +1,77 @@
+{
+  "Players": {
+     "players": "PLAYERS"
+  },
+  "navbar": {
+    "DASHBOARD": "DASHBOARD",
+    "GIVE": "GIVE",
+    "TELEPORT": "TELEPORT",
+    "GARAGE": "GARAGE",
+    "TROLL": "TROLL",
+    "DEV": "DEV"
+  },
+  "Announce": {
+    "TITLE": "Announce",
+    "TIME": "Time (sec)",
+    "HEADER": "Header",
+    "SENDBTN": "Send",
+    "TEXT": "Text"
+  },
+  "Commands": {
+    "TITLE": "Commands",
+    "DELETEALLVEHICLES": "Delete All Vehicles",
+    "DELETEALLOBJECTS": "Delete All Objects",
+    "DELETEALLPEDS": "Delete All Peds",
+    "TELEPORTTOWAYPOINT": "Teleport to waypoint"
+  },
+  "Inventory": {
+    "TITLE": "Inventory",
+    "NOPLAYER": "Please select a player to view Inventory",
+    "XINVENTORY": "'s inventory"
+  },
+  "Self": {
+    "TITLE": "Self",
+    "Invisible": "Invisible",
+    "Heal": "Heal",
+    "Armour": "Armour",
+    "Invincible": "Invincible",
+    "AddWeapons": "Add Weapons",
+    "RemoveWeapons": "Remove Weapons"
+  },
+  "Give": {
+    "NOPLAYER": "Player not selected!",
+    "GIVE": "GIVE",
+    "SKINMENU": "SKIN MENU",
+    "PEDMENU": "PED MENU",
+    "HANDCUFF": "HANDCUFF",
+    "plItems": "Items",
+    "plWeapon": "WEAPON_",
+    "plVehicle": "Vehicle Model"
+  },
+  "Teleport": {
+    "TITLE": "TELEPORT MENU",
+    "NOPLAYER": "Player not selected!",
+    "Public": "Public",
+    "Cloth": "Cloth",
+    "Impound": "Impound",
+    "Ambulance": "Ambulance",
+    "Waypoint": "Waypoint",
+    "LSPD": "LSPD",
+    "Bring": "Bring",
+    "Goto": "Goto"
+  },
+  "Garage": {
+    "OwnedVehicles": "OWNED VEHICLES",
+    "NOPLAYER": "Player not selected!",
+    "GIVEVEHICLEBTN": "Give Vehicle",
+    "plVehicle": "Enter vehicle model",
+    "SelectedVehicle": "Selected Vehicle:",
+    "Stored": "Stored:",
+    "Impound": "Impound",
+    "btnRemoveVehicle": "Remove Vehicle",
+    "btnStoreVehicle": "Store Vehicle",
+    "btnImpoundVehicle": "Impound Vehicle",
+    "glovebox": "GloveBox:",
+    "trunk": "Trunk:"
+  }
+}

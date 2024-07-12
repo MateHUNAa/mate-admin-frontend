@@ -9,96 +9,51 @@
                     {{ button.label }}
                </button>
           </div>
-          <h1 class="text-3xl text-center font-bold mt-12"> Work In Progress</h1>
+          <!-- <h1 class="text-3xl text-center font-bold mt-12"> Work In Progress</h1> -->
      </div>
 </template>
 
 <script setup>
+import axios from 'axios'
+import config from '../../../config.json'
 const buttonClass = 'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-slate-600 h-10 px-4 py-2 bg-slate-700 text-white';
 
 const adminButtons = [
      {
-          label: 'Delete all Vehicles',
+          label: config.Commands.DELETEALLVEHICLES,
           action: 'deleteVehicles'
      },
      {
-          label: 'Delete all Objects',
+          label: config.Commands.DELETEALLOBJECTS,
           action: 'deleteObjects'
      },
      {
-          label: 'Delete all Peds',
+          label: config.Commands.DELETEALLPEDS,
           action: 'deletePeds'
      },
      {
-          label: 'Teleport to Waypoint',
+          label: config.Commands.TELEPORTTOWAYPOINT,
           action: 'teleportWaypoint'
      },
 ];
 
 function handleButtonClick(action) {
      switch (action) {
-          case 'deleteVehicles':
-               deleteAllVehicles();
-               break;
           case 'teleportWaypoint':
-               teleportToWaypoint();
+               axios.post("https://mate-admin/client:tpm")
+               break;
+          case 'deleteVehicles':
+               axios.post("https://mate-admin/client:cleanupVehicles")
                break;
           case 'deleteObjects':
-               deleteAllObjects();
-               break;
-          case 'teleportCoords':
-               teleportToCoords();
+               axios.post("https://mate-admin/client:cleanupObjects")
                break;
           case 'deletePeds':
-               deleteAllPeds();
-               break;
-          case 'screenshotPlayer':
-               screenshotPlayer();
-               break;
-          case 'kickPlayer':
-               kickPlayer();
-               break;
-          case 'banPlayer':
-               banPlayer();
-               break;
-          case 'freecam':
-               // Handle freecam action
+               axios.post("https://mate-admin/client:cleanupPeds")
                break;
           default:
                break;
      }
 }
 
-// Mock functions for button actions (replace with actual logic)
-function deleteAllVehicles() {
-     console.log('Deleting all vehicles');
-}
-
-function teleportToWaypoint() {
-     console.log('Teleporting to waypoint');
-}
-
-function deleteAllObjects() {
-     console.log('Deleting all objects');
-}
-
-function teleportToCoords() {
-     console.log('Teleporting to coordinates');
-}
-
-function deleteAllPeds() {
-     console.log('Deleting all peds');
-}
-
-function screenshotPlayer() {
-     console.log('Taking screenshot of player');
-}
-
-function kickPlayer() {
-     console.log('Kicking player');
-}
-
-function banPlayer() {
-     console.log('Banning player');
-}
 </script>
