@@ -27,7 +27,7 @@
           <!-- Right Column -->
           <div class="flex flex-col w-2/3 p-4 border mx-2">
 
-               <div class="relative top-0 right-0">
+               <div class="relative top-0 right-0 m-1 p-1">
                     <button v-if="selectedVehicle" @click="unselectVehicle"
                          class="absolute top-2 right-2 inline-flex items-center justify-center h-8 w-8 text-lg font-bold bg-slate-700/50 rounded-sm">
                          X
@@ -47,16 +47,17 @@
                <!-- Manage Player Owned Vehicles -->
                <div v-else>
 
-                    <div class="flex flex-row gap-5 m-2 ">
+                    <div class="flex flex-row gap-5 m-2 mt-4">
                          <h2 class="text-lg font-bold mb-4 bg-slate-700 rounded-md p-2 m-2 min-w-40">
                               <FontAwesomeIcon :icon="faCar" />
-                              {{config.Garage.SelectedVehicle}} {{ selectedVehicle.label }}
+                              {{ config.Garage.SelectedVehicle }} <span class="text-md">{{ selectedVehicle.plate }}</span>
                          </h2>
                          <h2 class="text-lg font-bold mb-4 bg-slate-700 rounded-md p-2 m-2 min-w-40">
-                              <FontAwesomeIcon :icon="faWarehouse" /> {{config.Garage.Stored}}{{ selectedVehicle.stored }}
+                              <FontAwesomeIcon :icon="faWarehouse" /> {{ config.Garage.Stored }}{{ selectedVehicle.stored ? "Yes" : "No"}}
                          </h2>
                          <h2 class="text-lg font-bold mb-4 bg-slate-700 rounded-md p-2 m-2 min-w-40">
-                              <FontAwesomeIcon :icon="faCarBurst" /> {{config.Garage.Impound}} {{ !selectedVehicle.stored }}
+                              <FontAwesomeIcon :icon="faCarBurst" /> {{ config.Garage.Impound }} {{
+                              !selectedVehicle.stored ? "Yes" : "No" }}
                          </h2>
 
                     </div>
@@ -66,25 +67,25 @@
                          <div class="flex flex-row mx-5 gap-8 m-2">
                               <button @click="removeVehicle(idx)"
                                    class="inline-flex items-center justify-center max-w-64 whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-slate-700 text-white hover:bg-slate-600 h-10 px-4 py-2 border-2 border-slate-600 text-lg font-bold mb-4">
-                                   {{config.Garage.btnRemoveVehicle}}
+                                   {{ config.Garage.btnRemoveVehicle }}
                               </button>
                               <button @click="storeVehicle" :disabled="selectedVehicle.stored"
                                    class="inline-flex items-center justify-center max-w-64 whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-slate-700 text-white hover:bg-slate-600 h-10 px-4 py-2 border-2 border-slate-600 text-lg font-bold mb-4">
-                                   {{config.Garage.btnStoreVehicle}}
+                                   {{ config.Garage.btnStoreVehicle }}
                               </button>
                               <button @click="impoundVehicle" :disabled="selectedVehicle.impound"
                                    class="inline-flex items-center justify-center max-w-64 whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-slate-700 text-white hover:bg-slate-600 h-10 px-4 py-2 border-2 border-slate-600 text-lg font-bold">
-                                  {{config.Garage.btnImpoundVehicle}}
+                                   {{ config.Garage.btnImpoundVehicle }}
                               </button>
                          </div>
 
                          <div class="flex flex-col gap-5 mx-5 w-full">
-                              <h2>{{config.Garage.glovebox}}</h2>
+                              <h2>{{ config.Garage.glovebox }}</h2>
                               <div
                                    class="flex min-h-[80px] w-full rounded-md border border-input px-3 py-2 text-lg ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-slate-800/50 text-white">
                                    <pre v-html="formattedGloveBox" style="white-space: pre-wrap;"></pre>
                               </div>
-                              <h2>{{config.Garage.trunk}}</h2>
+                              <h2>{{ config.Garage.trunk }}</h2>
                               <div
                                    class="flex min-h-[80px] w-full rounded-md border border-input px-3 py-2 text-lg ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-slate-800/50 text-white">
                                    <pre v-html="formattedTrunkBox" style="white-space: pre-wrap;"></pre>
@@ -115,7 +116,6 @@ const newVehicleModel = ref("");
 
 const selectVehicle = (vehicle) => {
      selectedVehicle.value = vehicle;
-     console.log(`Selected vehicle: ${vehicle.plate}`);
 };
 
 const unselectVehicle = () => {
@@ -123,14 +123,12 @@ const unselectVehicle = () => {
 }
 
 const formattedTrunkBox = computed(() => {
-     console.log(JSON.stringify(selectedVehicle.value.trunk));
      if (!selectedVehicle.value || !selectedVehicle.value.trunk) return "";
 
      let gloveBoxItems;
 
      try {
           gloveBoxItems = JSON.parse(selectedVehicle.value.trunk);
-          console.log('Parsed trunk items:', gloveBoxItems);
      } catch (err) {
           console.error("Error parsing trunk JSON: ", err);
           return "";
@@ -166,14 +164,12 @@ const formattedTrunkBox = computed(() => {
      }).join('<br/>');
 });
 const formattedGloveBox = computed(() => {
-     console.log(JSON.stringify(selectedVehicle.value.glovebox));
      if (!selectedVehicle.value || !selectedVehicle.value.glovebox) return "";
 
      let gloveBoxItems;
 
      try {
           gloveBoxItems = JSON.parse(selectedVehicle.value.glovebox);
-          console.log('Parsed glovebox items:', gloveBoxItems);
      } catch (err) {
           console.error("Error parsing glovebox JSON: ", err);
           return "";
@@ -210,20 +206,17 @@ const formattedGloveBox = computed(() => {
 });
 
 const giveVehicle = () => {
-     console.log(`Giveing vehicle to ${props.selectedPlayer.name}: ${newVehicleModel.value}`)
      axios.post("https://mate-admin/garage:giveVehicle", JSON.stringify({ target: props.selectedPlayer.id, model: newVehicleModel.value }))
 }
 
 const removeVehicle = (idx) => {
      if (selectedVehicle.value) {
-          console.log(`Removeing vehicle from ${props.selectedPlayer.name} : ${selectedVehicle.value.model}`)
           axios.post('https://mate-admin/garage:removeVehicle', JSON.stringify({ target: props.selectedPlayer.id, plate: selectedVehicle.value.plate }))
      }
 }
 
 const storeVehicle = () => {
      if (selectedVehicle.value) {
-          console.log(`Storeing vehicle: ${selectedVehicle.value.model}`)
           axios.post('https://mate-admin/garage:storeVehicle', JSON.stringify({ target: props.selectedPlayer.id, plate: selectedVehicle.value.plate }))
           selectedVehicle.value.stored = true
      }
@@ -231,10 +224,8 @@ const storeVehicle = () => {
 
 const impoundVehicle = () => {
      if (selectedVehicle.value) {
-          console.log(`Imbound vehicle: ${selectedVehicle.value.model} Owner: ${props.selectedPlayer.name}`)
           axios.post('https://mate-admin/garage:impoundVehicle', JSON.stringify({ target: props.selectedPlayer.id, plate: selectedVehicle.value.plate }))
           selectedVehicle.value.stored = false
-
      }
 }
 </script>

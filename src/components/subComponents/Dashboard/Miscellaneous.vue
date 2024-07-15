@@ -36,7 +36,6 @@ const actions = ref([
 
 // Perform action
 const performAction = (action) => {
-     console.log(`Performed action: ${action}`);
      switch (action) {
           case "Invisible":
                axios.post("https://mate-admin/client:invisible")

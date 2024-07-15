@@ -58,7 +58,7 @@ const header = ref("")
 const text = ref("")
 
 const handleClick = () => {
-     if (!time.value || !header.value || !text.value) return console.log(`Arguments missing !`); // TODO: Notification
+     if (!time.value || !header.value || !text.value) return // TODO: Notification
 
      if (time.value > 10) time.value = 10;
      axios.post("https://mate-admin/announceSend", JSON.stringify({ time: time.value, header: header.value, text: text.value }))

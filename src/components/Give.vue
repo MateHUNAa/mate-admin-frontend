@@ -69,7 +69,6 @@ const handleClick = (action, value) => {
      switch (action) {
           case "giveWeapons":
                if (!value || !value.toLowerCase().startsWith("weapon")) {
-                    console.log(`[Failed]: Failed to give weapon to ${props.selectedPlayer.name} because the weapon model is not valid!`);
                     return;
                }
                axios.post("https://mate-admin/give:weapon", JSON.stringify({ weapon: value, target: props.selectedPlayer.id }))
@@ -77,9 +76,11 @@ const handleClick = (action, value) => {
           case "give":
                if (!value || value.toLowerCase().startsWith("weapon")) {
                     if (value) {
-                         console.log(`[Failed]: Failed to give item to ${props.selectedPlayer.name} because the item is a weapon!`);
+                         // TODO: Notification
+                         console.error(`[Failed]: Failed to give item to ${props.selectedPlayer.name} because the item is a weapon!`);
                     } else {
-                         console.log(`[Failed]: Failed to give item to ${props.selectedPlayer.name} because the item is null`);
+                         // TODO: Notification
+                         console.error(`[Failed]: Failed to give item to ${props.selectedPlayer.name} because the item is null`);
                     }
                     return;
                }
@@ -87,7 +88,8 @@ const handleClick = (action, value) => {
                break;
           case "giveVehicle":
                if (!value) {
-                    console.log(`[Failed]: Failed to give vehicle to ${props.selectedPlayer.name} because the model is null`);
+                    // TODO: Notification
+                    console.error(`[Failed]: Failed to give vehicle to ${props.selectedPlayer.name} because the model is null`);
                     return;
                }
                axios.post("https://mate-admin/give:vehicle", JSON.stringify({ vehicle: value, target: props.selectedPlayer.id }))
@@ -107,6 +109,5 @@ const handleClick = (action, value) => {
                break;
      }
      selectedButton.value = action;
-     console.log(`Action: ${action} SelectedPlayer: [${props.selectedPlayer.id}]${props.selectedPlayer.name} Value: ${value}`);
 };
 </script>

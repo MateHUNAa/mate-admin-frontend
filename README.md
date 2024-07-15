@@ -1,4 +1,6 @@
-## Hello This is a front end project for my admin system built for FiveM
+## Hello This is a front end project for our admin system built for FiveM
+
+Support: [discord](https://discord.gg/ZGrjqS7NDB)
 
 ## Players tab on the side
 - List all the players currently in the server

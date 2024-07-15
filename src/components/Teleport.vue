@@ -28,7 +28,6 @@ const props = defineProps({
 })
 
 const handleAction = (action) => {
-     console.log(`action: ${action}`)
      axios.post(`https://mate-admin/teleport`, JSON.stringify({ target: props.selectedPlayer.id, action: action }))
 }
 

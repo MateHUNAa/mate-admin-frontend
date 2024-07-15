@@ -82,14 +82,13 @@ const selectComponent = (componentName) => {
 };
 
 
-const showUI = ref(false);
+const showUI = ref(true);
 const version = ref("NOT FOUND")
-const players = ref([]);
+const players = ref([{id: 1, name: "asd", inventory: {}, trunk: {}, glovebox: {}}]);
 
 const selectedPlayer = ref(null);
 const selectPlayer = (player) => {
   selectedPlayer.value = player;
-  console.log(`Selected player: ${player.name}`);
 };
 
 
@@ -103,17 +102,14 @@ addEventListener("message", (event) => {
   }
 
   if (d.type === "m-admin:panel:open") {
-    console.log("OPENING MENU")
     showUI.value = true
     players.value = e
     version.value = d.version
-
-    console.log(JSON.stringify(players.value))
   }
 });
 
 addEventListener("keydown", (event) => {
-  if (event.key === "Escape" || event.key === "Backspace") {
+  if (event.key === "Escape") {
     showUI.value = false;
     axios.post("https://mate-admin/:closeUI")
   }
