@@ -22,7 +22,8 @@
     "DELETEALLVEHICLES": "Delete All Vehicles",
     "DELETEALLOBJECTS": "Delete All Objects",
     "DELETEALLPEDS": "Delete All Peds",
-    "TELEPORTTOWAYPOINT": "Teleport to waypoint"
+    "TELEPORTTOWAYPOINT": "Teleport to waypoint",
+    "ADMINZONE": "Create Adminzone"
   },
   "Inventory": {
     "TITLE": "Inventory",

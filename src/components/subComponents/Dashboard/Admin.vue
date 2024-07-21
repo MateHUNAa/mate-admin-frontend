@@ -35,6 +35,14 @@ const adminButtons = [
           label: config.Commands.TELEPORTTOWAYPOINT,
           action: 'teleportWaypoint'
      },
+     {
+          label: config.Commands.TELEPORTTOWAYPOINT,
+          action: 'teleportWaypoint'
+     },
+     {
+          label: config.Commands.ADMINZONE,
+          action: 'adminZone'
+     },
 ];
 
 function handleButtonClick(action) {
@@ -50,6 +58,10 @@ function handleButtonClick(action) {
                break;
           case 'deletePeds':
                axios.post("https://mate-admin/client:cleanupPeds")
+               break;
+          case "adminZone":
+               axios.post("https://mate-admin/client:adminZone")
+
                break;
           default:
                break;
